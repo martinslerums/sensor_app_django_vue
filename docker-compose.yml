@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./sensor_frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./sensor_backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" 
+    volumes:
+      - ./sensor_backend:/app  
+    environment:
+      - DJANGO_SETTINGS_MODULE=sensor_backend.settings  
+
